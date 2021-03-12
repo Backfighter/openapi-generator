@@ -155,6 +155,12 @@ No description available.
 .PARAMETER OrderId
 ID of pet that needs to be fetched
 
+.PARAMETER Return
+ID of pet that needs to be fetched
+
+.PARAMETER Else
+ID of pet that needs to be fetched
+
 .PARAMETER ReturnType
 
 Select the return type (optional): application/xml, application/json
@@ -173,6 +179,12 @@ function Get-PSOrderById {
         [Parameter(Position = 0, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, Mandatory = $false)]
         [Int64]
         ${OrderId},
+        [Parameter(Position = 1, ValueFromPipelineByPropertyName = $true, Mandatory = $false)]
+        [String]
+        ${Return},
+        [Parameter(Position = 2, ValueFromPipelineByPropertyName = $true, Mandatory = $false)]
+        [String]
+        ${Else},
         [String]
         [ValidateSet("application/xml", "application/json")]
         $ReturnType,
@@ -207,6 +219,16 @@ function Get-PSOrderById {
             throw "Error! The required parameter `OrderId` missing when calling getOrderById."
         }
         $LocalVarUri = $LocalVarUri.replace('{orderId}', $OrderId)
+
+        if (!$Return) {
+            throw "Error! The required parameter `Return` missing when calling getOrderById."
+        }
+        $LocalVarHeaderParameters['return'] = $Return
+
+        if (!$Else) {
+            throw "Error! The required parameter `Else` missing when calling getOrderById."
+        }
+        $LocalVarHeaderParameters['else'] = $Else
 
         $LocalVarResult = Invoke-PSApiClient -Method 'GET' `
                                 -Uri $LocalVarUri `

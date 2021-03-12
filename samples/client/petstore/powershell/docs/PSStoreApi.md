@@ -102,6 +102,8 @@ This endpoint does not need any parameter.
 # **Get-PSOrderById**
 > Order Get-PSOrderById<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-OrderId] <Int64><br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Return] <String><br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Else] <String><br>
 
 Find purchase order by ID
 
@@ -110,10 +112,12 @@ For valid response try integer IDs with value <= 5 or > 10. Other values will ge
 ### Example
 ```powershell
 $OrderId = 987 # Int64 | ID of pet that needs to be fetched
+$Return = "Return_example" # String | ID of pet that needs to be fetched
+$Else = "Else_example" # String | ID of pet that needs to be fetched
 
 # Find purchase order by ID
 try {
-     $Result = Get-PSOrderById -OrderId $OrderId
+     $Result = Get-PSOrderById -OrderId $OrderId -Return $Return -Else $Else
 } catch {
     Write-Host ("Exception occured when calling Get-PSOrderById: {0}" -f ($_.ErrorDetails | ConvertFrom-Json))
     Write-Host ("Response headers: {0}" -f ($_.Exception.Response.Headers | ConvertTo-Json))
@@ -125,6 +129,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **OrderId** | **Int64**| ID of pet that needs to be fetched | 
+ **Return** | **String**| ID of pet that needs to be fetched | 
+ **Else** | **String**| ID of pet that needs to be fetched | 
 
 ### Return type
 # cmdlet returns PSCustomObject, the return object contains the properties of below type
